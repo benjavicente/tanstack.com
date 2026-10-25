@@ -4,7 +4,6 @@ import { CodeBlock } from '~/components/markdown/CodeBlock'
 import bundleSizes from '~/data/redact-framework-sizes.json'
 import { LandingSection, LibraryLandingShell } from './LibraryLanding'
 
-const repo = 'https://github.com/TanStack/redact'
 const largestBundle = Math.max(
   ...bundleSizes.comparisons.flatMap((item) => [
     item.reactBytes,
@@ -22,7 +21,7 @@ const setups = [
   {
     name: 'Start',
     file: 'vite.config.ts',
-    guide: 'vite-plugin',
+    guide: 'start',
     detail:
       'Add Redact after Start and React. Bundle server dependencies so their React imports use the same runtime as your app.',
     code: `import { defineConfig } from 'vite'
@@ -223,18 +222,6 @@ export default function RedactLanding() {
             >
               {setup.name} setup and coverage ↗
             </Link>
-            {(setup.name === 'Vinext' || setup.name === 'Next.js') && (
-              <p className="max-w-lg text-sm leading-relaxed text-text-secondary">
-                The Vinext and Next.js release isn't published yet.{' '}
-                <a
-                  href={`${repo}/pull/52`}
-                  className="underline underline-offset-4"
-                >
-                  Track the release
-                </a>
-                .
-              </p>
-            )}
           </div>
           <div id="redact-framework-setup" className="min-w-0">
             <CodeBlock dataCodeTitle={setup.file}>

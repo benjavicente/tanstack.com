@@ -8,8 +8,6 @@ authors:
 library: redact
 ---
 
-> This release isn't published yet. [Follow the release](https://github.com/TanStack/redact/pull/52).
-
 Redact's Vinext and Next.js integrations let you keep your components, hooks, and React imports while swapping in a smaller browser runtime. That includes App Router and Pages Router, even if your app only uses Pages Router.
 
 React still handles server rendering and Server Components. Your framework still owns routing, caching, and Server Action transport. Redact hydrates the HTML and runs your client components in the browser.
@@ -33,7 +31,7 @@ Production build times were effectively equal. Development startup was 2.2% fast
 
 Install `@tanstack/redact` and keep your React dependencies. Your component imports stay the same.
 
-TanStack Start and Vite use the [Vite integration](/redact/latest/docs/vite-plugin).
+Use the [TanStack Start setup](/redact/latest/docs/start) or [Vite integration](/redact/latest/docs/vite-plugin) for those builds.
 
 For Vinext, add Redact after `vinext()`:
 

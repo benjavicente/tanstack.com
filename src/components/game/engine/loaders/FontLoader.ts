@@ -1,9 +1,8 @@
 // @ts-expect-error - troika-three-text has no types
 import { preloadFont } from 'troika-three-text'
+import gameFontUrl from '@fontsource/inter/files/inter-latin-400-normal.woff?url'
 
-// Font URL - using Inter from Google Fonts CDN for reliability
-export const GAME_FONT_URL =
-  'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2'
+export const GAME_FONT_URL = gameFontUrl
 
 // Common characters used in the game
 const COMMON_CHARS =

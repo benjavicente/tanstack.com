@@ -1,10 +1,20 @@
 import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { resolve } from 'node:path'
 
-import { fetchStaticAsset } from '~/server/runtime/host.server'
+import {
+  fetchStaticAsset,
+  isIsolateRuntime,
+} from '~/server/runtime/host.server'
 
-const interRegularUrl = '/fonts/Inter-Regular.ttf'
-const bricolageBoldUrl = '/fonts/BricolageGrotesque-Bold.ttf'
+const interRegularFont = {
+  specifier: '../../../public/fonts/Inter-Regular.ttf',
+  url: '/fonts/Inter-Regular.ttf',
+}
+const bricolageBoldFont = {
+  specifier: '../../../public/fonts/BricolageGrotesque-Bold.ttf',
+  url: '/fonts/BricolageGrotesque-Bold.ttf',
+}
 const imageAssets = {
   logo: {
     path: 'public/images/brand/tanstack-landscape-black-640.png',
@@ -50,6 +60,24 @@ type FontAssets = {
 let cachedFonts: FontAssets | null = null
 const cachedImages = new Map<ImageAsset, Buffer>()
 
+export async function loadFont(
+  font: { specifier: string; url: string },
+  requestUrl?: string,
+) {
+  if (!isIsolateRuntime()) {
+    const require = createRequire(import.meta.url)
+    try {
+      return readFileSync(require.resolve(font.specifier))
+    } catch {}
+  }
+
+  if (!requestUrl) {
+    throw new Error('OG font URL fallback requires a request URL')
+  }
+
+  return readAssetUrl(font.url, requestUrl)
+}
+
 async function loadAsset(
   relPath: string,
   assetUrl: string,
@@ -69,12 +97,8 @@ async function loadFonts(requestUrl?: string) {
   if (cachedFonts) return cachedFonts
 
   const [interRegular, bricolageBold] = await Promise.all([
-    loadAsset('public/fonts/Inter-Regular.ttf', interRegularUrl, requestUrl),
-    loadAsset(
-      'public/fonts/BricolageGrotesque-Bold.ttf',
-      bricolageBoldUrl,
-      requestUrl,
-    ),
+    loadFont(interRegularFont, requestUrl),
+    loadFont(bricolageBoldFont, requestUrl),
   ])
 
   cachedFonts = { interRegular, bricolageBold }

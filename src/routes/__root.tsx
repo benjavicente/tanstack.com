@@ -14,6 +14,7 @@ import { createThemeCss, type HighlightTheme } from '@tanstack/highlight/theme'
 import { auroraXTheme } from '@tanstack/highlight/themes/aurora-x'
 import { githubLightTheme } from '@tanstack/highlight/themes/github-light'
 import '~/styles/app.css'
+import interLatinUrl from '@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url'
 import {
   canonicalUrl,
   getCanonicalPath,
@@ -220,22 +221,10 @@ export const Route = createRootRouteWithContext<{
         ...canonicalHeadTags.links,
         {
           rel: 'preload',
-          href: '/fonts/Inter-latin.woff2',
+          href: interLatinUrl,
           as: 'font',
           type: 'font/woff2',
           crossOrigin: 'anonymous',
-        },
-        // Rebrand type system: Bricolage Grotesque (display/headings) + IBM Plex
-        // Mono (code). Loaded globally so the new styles apply across the site.
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        {
-          rel: 'preconnect',
-          href: 'https://fonts.gstatic.com',
-          crossOrigin: 'anonymous',
-        },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap',
         },
         {
           rel: 'apple-touch-icon',

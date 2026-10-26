@@ -40,6 +40,8 @@ export const Route = createFileRoute('/chat')({
     links: [{ rel: 'stylesheet', href: loaderData?.chatStyles }],
     scripts: [
       {
+        type: 'module',
+        async: true,
         children: `${loaderData?.appearance ? `document.documentElement.setAttribute('data-gum-ssr-appearance',${JSON.stringify(loaderData.appearance).replace(/</g, '\\u003c')});` : ''}${loaderData?.appearanceScript ?? ''}`,
       },
     ],

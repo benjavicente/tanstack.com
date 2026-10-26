@@ -39,7 +39,7 @@ it('captures the shared document before the chat startup palette changes it', ()
   }
   const window: { __TANCHAT_PRE_CHAT_APPEARANCE__?: ChatDocumentAppearance } =
     {}
-  runInNewContext(appearanceScript, {
+  runInNewContext(`"use strict";${appearanceScript}`, {
     window,
     document: { documentElement: root, querySelectorAll: () => [meta] },
     localStorage: {

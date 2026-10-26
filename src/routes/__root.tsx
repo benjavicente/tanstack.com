@@ -268,7 +268,13 @@ export const Route = createRootRouteWithContext<{
       ],
       scripts:
         import.meta.env.PROD && import.meta.env.MODE !== 'staging'
-          ? [{ children: GOOGLE_ANALYTICS_BOOTSTRAP }]
+          ? [
+              {
+                type: 'module',
+                async: true,
+                children: GOOGLE_ANALYTICS_BOOTSTRAP,
+              },
+            ]
           : [],
     }
   },
@@ -350,10 +356,16 @@ function ShellComponent({ children }: { children: React.ReactNode }) {
     <html lang="en" className={htmlClass} suppressHydrationWarning>
       <head>
         <script
+          type="module"
+          async
           dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }}
           suppressHydrationWarning
         />
-        <script dangerouslySetInnerHTML={{ __html: DOCS_WIDTH_BOOTSTRAP }} />
+        <script
+          type="module"
+          async
+          dangerouslySetInnerHTML={{ __html: DOCS_WIDTH_BOOTSTRAP }}
+        />
         <HeadContent />
         {import.meta.env.PROD ? (
           <script
